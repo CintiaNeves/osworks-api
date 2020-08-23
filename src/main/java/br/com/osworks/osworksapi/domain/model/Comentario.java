@@ -2,62 +2,49 @@ package br.com.osworks.osworksapi.domain.model;
 
 import static javax.persistence.GenerationType.IDENTITY;
 
+import java.time.OffsetDateTime;
+
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
-import javax.validation.constraints.Email;
-import javax.validation.constraints.NotBlank;
-import javax.validation.constraints.NotNull;
-import javax.validation.constraints.Size;
-
-import br.com.osworks.osworksapi.domain.ValidationGroups;
+import javax.persistence.ManyToOne;
 
 @Entity
-public class Cliente {
-	
-	@NotNull(groups = ValidationGroups.ClienteId.class)
+public class Comentario {
+
 	@Id
 	@GeneratedValue(strategy = IDENTITY)
 	private Long id;
 	
-	@NotBlank
-	@Size(max = 60)
-	private String nome;
+	private String descricao;
 	
-	@NotBlank
-	@Email
-	@Size(max = 255)
-	private String email;
-	
-	@NotBlank
-	@Size(max = 20)
-	private String telefone;
-	
+	@ManyToOne
+	private OrdemServico ordemServico;
+	private OffsetDateTime dataEnvio;
 	public Long getId() {
 		return id;
 	}
 	public void setId(Long id) {
 		this.id = id;
 	}
-	public String getNome() {
-		return nome;
+	public String getDescricao() {
+		return descricao;
 	}
-	public void setNome(String nome) {
-		this.nome = nome;
+	public void setDescricao(String descricao) {
+		this.descricao = descricao;
 	}
-	public String getEmail() {
-		return email;
+	public OrdemServico getOrdemServico() {
+		return ordemServico;
 	}
-	public void setEmail(String email) {
-		this.email = email;
+	public void setOrdemServico(OrdemServico ordemServico) {
+		this.ordemServico = ordemServico;
 	}
-	public String getTelefone() {
-		return telefone;
+	public OffsetDateTime getDataEnvio() {
+		return dataEnvio;
 	}
-	public void setTelefone(String telefone) {
-		this.telefone = telefone;
+	public void setDataEnvio(OffsetDateTime dataEnvio) {
+		this.dataEnvio = dataEnvio;
 	}
-	
 	@Override
 	public int hashCode() {
 		final int prime = 31;
@@ -65,7 +52,6 @@ public class Cliente {
 		result = prime * result + ((id == null) ? 0 : id.hashCode());
 		return result;
 	}
-	
 	@Override
 	public boolean equals(Object obj) {
 		if (this == obj)
@@ -74,7 +60,7 @@ public class Cliente {
 			return false;
 		if (getClass() != obj.getClass())
 			return false;
-		Cliente other = (Cliente) obj;
+		Comentario other = (Comentario) obj;
 		if (id == null) {
 			if (other.id != null)
 				return false;
